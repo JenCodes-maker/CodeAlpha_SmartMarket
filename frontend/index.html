@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Smart Market</title>
+
+  <!-- ⭐ Mobile Responsive -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+  
+  <div class="logo">
+    <span>Smart</span>
+    <small>Market</small>
+  </div>
+
+  <input 
+    class="search" 
+    placeholder="Search for iPhone, Shirts, Laptops..."
+    onkeyup="searchProducts(this.value)"
+  >
+
+  <div class="header-right">
+
+    <button class="login-btn"
+      onclick="window.location.href='login.html'">
+      Login
+    </button>
+
+    <span onclick="window.location.href='cart.html'" style="cursor:pointer">
+      🛒 Cart
+    </span>
+
+    <span style="cursor:pointer">
+      Become a Seller
+    </span>
+
+  </div>
+</header>
+
+
+<!-- ⭐ Categories -->
+<section class="categories" aria-label="Product Categories">
+
+  <div class="category-card" onclick="loadCategory('Electronics')">
+    <img src="https://img.icons8.com/color/96/smartphone.png">
+    <p>Electronics</p>
+  </div>
+
+  <div class="category-card" onclick="loadCategory('Fashion')">
+    <img src="https://img.icons8.com/color/96/t-shirt.png">
+    <p>Fashion</p>
+  </div>
+
+  <div class="category-card" onclick="loadCategory('Home')">
+    <img src="https://img.icons8.com/color/96/sofa.png">
+    <p>Home</p>
+  </div>
+
+  <div class="category-card" onclick="loadCategory('Appliances')">
+    <img src="https://img.icons8.com/color/96/washing-machine.png">
+    <p>Appliances</p>
+  </div>
+
+</section>
+
+
+<!-- ⭐ Deals -->
+<section class="deals">
+  <h2>Best Deals</h2>
+  <div class="products" id="products"></div>
+</section>
+
+
+<script src="script.js"></script>
+</body>
+</html>
