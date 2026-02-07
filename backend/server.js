@@ -26,9 +26,15 @@ app.use(express.static(path.join(__dirname, "frontend")));
 
 /* ================= DATABASE ================= */
 
+if (!process.env.MONGO_URI) {
+  console.error("❌ MONGO_URI is NOT set!");
+  process.exit(1);
+}
+
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB Atlas Connected"))
   .catch(err => console.log("❌ DB Error:", err));
+
 
 mongoose.connection.once("open", () => {
   console.log("🔥 CONNECTED DATABASE:", mongoose.connection.name);
@@ -70,15 +76,18 @@ app.get("/api/products", async (req, res) => {
 // GET PRODUCTS BY CATEGORY
 app.get("/api/products/category/:cat", async (req, res) => {
   try {
+
     const products = await Product.find({
-      category: req.params.cat
+      category: { $regex: new RegExp("^" + req.params.cat + "$", "i") }
     });
 
     res.json(products);
+
   } catch {
     res.status(500).send("Category Error");
   }
 });
+
 
 // GET SINGLE PRODUCT
 app.get("/api/products/:id", async (req, res) => {
