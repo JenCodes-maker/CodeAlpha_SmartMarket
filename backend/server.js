@@ -1,3 +1,4 @@
+const path = require("path");
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -16,6 +17,7 @@ app.use(express.json());
 // ⭐ MAKE IMAGES PUBLIC
 app.use("/images", express.static("images"));
 
+app.use(express.static(path.join(__dirname, "frontend")));
 
 // ⭐ MULTER STORAGE CONFIG
 const storage = multer.diskStorage({
