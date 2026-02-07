@@ -1,6 +1,5 @@
 console.log("PRODUCT PAGE LOADED");
 
-// ⭐ ICON MAP (KEEP OUTSIDE — Professional)
 const icons = {
     electronics: "android",
     fashion: "t-shirt",
@@ -15,17 +14,14 @@ if (!productId) {
     window.location.href = "index.html";
 }
 
-
 // ⭐ FETCH SINGLE PRODUCT
-fetch(`http://localhost:5000/api/products/${productId}`)
+fetch(`/api/products/${productId}`)
 .then(res => res.json())
 .then(product => {
 
     console.log("Loaded Product:", product);
 
-    // ⭐ IMAGE LOGIC
     const category = product.category.toLowerCase().trim();
-
     let img = icons[category] || "shopping-bag";
 
     document.getElementById("productImg").src =
@@ -34,15 +30,17 @@ fetch(`http://localhost:5000/api/products/${productId}`)
     document.getElementById("productName").innerText = product.name;
     document.getElementById("productPrice").innerText = "₹" + product.price;
 
-    // ⭐ DESCRIPTION
     document.getElementById("productDesc").innerText =
         getDescription(product.category, product.name);
 
     window.currentProduct = product;
+})
+.catch(err => {
+    console.error("Product fetch error:", err);
 });
 
 
-// ⭐ SMART DESCRIPTION FUNCTION
+// ⭐ DESCRIPTION
 function getDescription(category, name){
 
     const descriptions = {
@@ -51,19 +49,18 @@ function getDescription(category, name){
         `Experience top performance with the ${name}. Built with advanced technology, powerful hardware, and sleek design — perfect for work, gaming, and entertainment.`,
 
         Fashion:
-        `Upgrade your wardrobe with the stylish ${name}. Made from premium fabric for superior comfort, durability, and modern fashion. Perfect for everyday wear.`,
+        `Upgrade your wardrobe with the stylish ${name}. Made from premium fabric for superior comfort.`,
 
         Home:
-        `Enhance your living space with the elegant ${name}. Designed for comfort, durability, and modern interiors.`,
+        `Enhance your living space with the elegant ${name}. Designed for comfort and durability.`,
 
         Appliances:
-        `Make daily tasks easier with the reliable ${name}. Energy efficient, powerful, and built to last.`
+        `Make daily tasks easier with the reliable ${name}. Energy efficient and built to last.`
     };
 
     return descriptions[category] || 
-    "High-quality product with excellent durability and performance.";
+    "High-quality product with excellent durability.";
 }
-
 
 
 // ⭐ ADD TO CART
